@@ -1,0 +1,28 @@
+{
+  "name": "challenge-cashapp",
+  "version": "1.0.0",
+  "description": "Cash Coding Exercise v4",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "mocha tests/*_test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/REDACTED/challenge-cashapp.git"
+  },
+  "author": "REDACTED",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/REDACTED/challenge-cashapp/issues"
+  },
+  "homepage": "https://github.com/REDACTED/challenge-cashapp#readme",
+  "devDependencies": {
+    "mocha": "^8.2.0"
+  },
+  "dependencies": {
+    "bignumber.js": "^9.0.1"
+  }
+}
