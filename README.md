@@ -37,7 +37,7 @@ One domain is the customer domain, and the other domain is the bank domain.
 I've made some assumptions which apply to both domains:
 
 * There is only one currency the bank needs to deal with, so there are no currency codes or having to deal with currency conversion rates.
-* The values for the balances and the transactions are floating point. JavaScript is not reliable at maths (especially floating point) so I have used the [BigNumber.js](https://github.com/MikeMcl/bignumber.js/) library to help with the calculations. There is one test where I have used values which would calculate an incorrect value using native JavaScript maths.
+* The values for the balances and the transactions are floating point. JavaScript is not reliable at maths ([especially floating point](https://www.matthewburfield.com/javascript-deep-dive-floating-point-numbers/)) so I have used the [BigNumber.js](https://github.com/MikeMcl/bignumber.js/) library to help with the calculations. There is one test where I have used values which would calculate an incorrect value using native JavaScript maths.
 * I have not implemented any rounding, and the assumption is that the user will use sensible amounts, to up to two decimal places.
 * There is no persistance of data.
 * There is no CLI, nor Web Service.
@@ -47,7 +47,9 @@ I've made some assumptions which apply to both domains:
 
 ### Customer Domain
 
-Using the simplest way to represent the customer entity I made the assumption that a customer of the bank can only have one bank account. Another simplification that I chose was to use the customer's name as the identifier for the customer.
+Using the simplest way to represent the customer entity I made the assumption that a customer of the bank can only have one bank account. The customer domain is really concerned with a customer account. If I was to add a bit more detail, I would have allowed a customer to have multiple accounts, and these accounts would have been a separate class. I felt this is over-engineering the solution, and would not help in biulding something which delivers what the requirements request.
+
+Another simplification that I chose was to use the customer's name as the identifier for the customer.
 
 For the sake of modelling and the simple examples I thought that this was good enough. In the real world the customer would have some sort of unique identifier which is assigned to the customer by the system (think of UUID, GUID, or something similar). There is more than on Jane Smith in the world. Solving this problem was not really demonstrating the workings of a bank.
 
@@ -56,6 +58,8 @@ The customer has a balance attribute which states how much money the customer ha
 There is checking on the customer deposit and withdrawals to make sure that the amount specified was greater than zero (and is a number). I did not want to allow the case of a negative deposit amount which could have meant that the customer was withdrawing money. Customers are allowed to deposit as much funds as they like, but they can only withdraw up to the amount that they have in their own bank account. There is no overdraft or credit.
 
 I added a check in the customer entity for a valid name. This is because a customer entity knows what a valid name is, and other domains should not have to have knowledge of this.
+
+Within the customer domain, the balance, and withdrawal and depositing of funds is for the benefit of the customer. The language and words that are used are in the context of the customer.
 
 ### Bank Domain
 
@@ -70,6 +74,8 @@ The main operations that the bank needs to deal with are deposits (money going i
 The method which gets the customer statement is a point in time state of the customer's balance, and also the bank's available funds. It wasn't clear if we needed to include both pieces of information in the statement (customer balance, and bank available funds). I took it as there needed to be a way to get both pieces of information back to the user of the code. In real life I don't think that you would ever want to tell a customer how much available funds you had in the bank. This is why I made the decision to include this functionality as part of the bank domain.
 
 The bank domain is aware of the customer domain, but the customer domain is not aware at all of the bank domain.
+
+Within the bank domain, the balance is the available funds to the the bank, and the withdrawl and deposit of funds are adjusted for the given customer, and the result is then reflected in the available funds for the bank. You'll note that these are the same words as in the customer domain, but have different meanings for the bank domain.
 
 ## Final Comments
 
