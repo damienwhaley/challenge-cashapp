@@ -47,7 +47,7 @@ I've made some assumptions which apply to both domains:
 
 ### Customer Domain
 
-Using the simplest way to represent the customer entity I made the assumption that a customer of the bank can only have one bank account. The customer domain is really concerned with a customer account. If I was to add a bit more detail, I would have allowed a customer to have multiple accounts, and these accounts would have been a separate class. I felt this is over-engineering the solution, and would not help in biulding something which delivers what the requirements request.
+Using the simplest way to represent the customer entity I made the assumption that a customer of the bank can only have one bank account. The customer domain is really concerned with a customer account. If I was to add a bit more detail, I would have allowed a customer to have multiple accounts, and these accounts would have been a separate class. I felt this is over-engineering the solution, and would not help in building something which delivers what the requirements request.
 
 Another simplification that I chose was to use the customer's name as the identifier for the customer.
 
