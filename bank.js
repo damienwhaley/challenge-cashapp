@@ -11,6 +11,7 @@ class Bank {
   }
 
   getCustomers() {
+    // Get all the customers
     return this.customers;
   }
 
@@ -29,8 +30,8 @@ class Bank {
     return false;
   }
 
-  // get the customer
   getCustomer(customerName) {
+    // Get only the requested customer
     for(var i = 0; i < this.customers.length; i++) {
       if (this.customers[i].getName() === customerName) {
         return this.customers[i];
@@ -40,12 +41,65 @@ class Bank {
     return null;
   }
 
-  // add funds (customer record, amount)
+  getBalance() {
+    return this.balance;
+  }
 
-  // withdraw funds (customer record, amount)
+  getName() {
+    return this.name;
+  }
 
-  // get balance
+  depositFunds(customerName, amount) {
+    const customer = this.getCustomer(customerName);
+    if(!customer) {
+      return false;
+    }
 
+    let depositResult = customer.depositFunds(amount);
+
+    if(!depositResult) {
+      return false;
+    }
+
+    this.balance = this.balance.plus(amount);
+
+    return true;
+  }
+
+  withdrawFunds(customerName, amount) {
+    const customer = this.getCustomer(customerName);
+    if(!customer) {
+      return false;
+    }
+
+    let withdrawalResult = customer.withdrawFunds(amount);
+
+    if(!withdrawalResult) {
+      return false;
+    }
+
+    this.balance = this.balance.minus(amount);
+
+    return true;
+  }
+
+  getStatement(customerName) {
+    const customer = this.getCustomer(customerName);
+    if(!customer) {
+      return null;
+    }
+
+    return {
+      bank: {
+        name: this.getName(),
+        balance: this.getBalance().toNumber()
+      },
+      customer: {
+        name: customer.getName(),
+        balance: customer.getBalance().toNumber()
+      }
+    };
+  }
 }
 
 module.exports = Bank;
