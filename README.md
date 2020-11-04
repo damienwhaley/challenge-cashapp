@@ -4,7 +4,7 @@ This is my interpretation of the Cash coding challenge.
 
 ## TL;DR
 
-This challenge response is coded in JavaScript running in Node 14.15.0. You will need that on the machine you are running this code on. I resisted the temptation of including a Dockerfile.
+This challenge response is written in JavaScript running in Node 14.15.0. You will need that installed on the machine you are running this code on.
 
 To get this code running you should do the following:
 
@@ -28,11 +28,9 @@ This will run all the tests. My aim was to have the "happy" path tested, then lo
 
 ## Modelling
 
-I have taken the simplest possible approach to modelling a bank.
+I have taken the simplest possible approach to modelling a bank. The model I have chosen is not an accurate reflection of how banks actually work, the model is designed to provide the functionality which was requested.
 
-I have modelled the bank with two domains which are related to each other.
-
-One domain is the customer domain, and the other domain is the bank domain.
+I have modelled the bank with two domains: bank and customer. The bank domain knows about the customer domain, and the customer domain is not aware of the bank domain.
 
 I've made some assumptions which apply to both domains:
 
@@ -89,4 +87,4 @@ The test cases also demonstrate the use of the challenge code, and proves that t
 
 ## Thanks
 
-Thanks for spending the time to review this, and I look forward to your feedback.
+Thank you for spending the time to review this, and I look forward to your feedback.
