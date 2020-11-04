@@ -45,11 +45,11 @@ describe('Bank class', () => {
 
       assert(bank.getCustomers().length === 0);
 
-      for(var i = 0; i < CUSTOMER_NAMES; i++) {
+      for (var i = 0; i < CUSTOMER_NAMES.length; i++) {
         let result = bank.addCustomer(CUSTOMER_NAMES[i]);
 
         assert(result === true);
-        assert(bank.getCustomers().length === i);
+        assert(bank.getCustomers().length === (i + 1));
       }
     });
 
@@ -272,6 +272,21 @@ describe('Bank class', () => {
       assert(result.bank.balance === bank.getBalance().toNumber());
       assert(result.customer.name === CUSTOMER_NAME);
       assert(result.customer.balance === bank.getBalance().toNumber());
+    });
+
+    it('Can not get the statement for a person who is not a customer of the bank', () => {
+      const BANK_NAME = 'Flaky Bank';
+      const CUSTOMER_NAME = 'Joanna';
+      const MISSING_CUSTOMER_NAME = 'Kayleigh';
+      const AMOUNT = 60;
+
+      const bank = new Bank(BANK_NAME);
+      bank.addCustomer(CUSTOMER_NAME);
+      bank.depositFunds(CUSTOMER_NAME, AMOUNT);
+
+      const result = bank.getStatement(MISSING_CUSTOMER_NAME);
+
+      assert(result === null);
     });
   });
 });

@@ -1,8 +1,10 @@
 # Cash Coding Exercise v4
 
+This is my interpretation of the Cash coding challenge.
+
 ## TL;DR
 
-This challenge is coded in JavaScript running in Node 14.15.0. You will need that on the machine you are running this code on. I resisted the temptation of including a Dockerfile.
+This challenge response is coded in JavaScript running in Node 14.15.0. You will need that on the machine you are running this code on. I resisted the temptation of including a Dockerfile.
 
 To get this code running you should do the following:
 
@@ -22,28 +24,32 @@ npm install
 npm test
 ```
 
-This will run all the tests. My aim was to have the "happy" path tested, then look at "sad" path - edge cases and things that were obviously wrong or not allowed. This gave me confidence that my solution worked the way I expected, and it allowed me to re-factor the code quickly knowing that I had tests covering the functionality I had implemented.
+This will run all the tests. My aim was to have the "happy" path tested, then look at "sad" path - edge cases and things that were obviously wrong or not allowed. This gave me confidence that my solution worked the way I expected, and it allowed me to refactor the code quickly knowing that I had tests covering the functionality I had implemented.
 
 ## Modelling
 
 I have taken the simplest possible approach to modelling a bank.
 
-I have modelled two domains which are related to each other.
+I have modelled the bank with two domains which are related to each other.
 
 One domain is the customer domain, and the other domain is the bank domain.
 
 I've made some assumptions which apply to both domains:
 
 * There is only one currency the bank needs to deal with, so there are no currency codes or having to deal with currency conversion rates.
-* The values for the balances and the transactions are floating point. JavaScript is not reliable at maths (especially floating point) so I have used the [BigNumber.js](https://github.com/MikeMcl/bignumber.js/) library to help with this. There is one test where I have used values which would calculate an incorrect value using native JavaScript maths.
+* The values for the balances and the transactions are floating point. JavaScript is not reliable at maths (especially floating point) so I have used the [BigNumber.js](https://github.com/MikeMcl/bignumber.js/) library to help with the calculations. There is one test where I have used values which would calculate an incorrect value using native JavaScript maths.
 * I have not implemented any rounding, and the assumption is that the user will use sensible amounts, to up to two decimal places.
-* I have not implemented a log of the transactions  which happened (a ledger). This would be the next thing I implemented if the requirements had asked for it.
+* There is no persistance of data.
+* There is no CLI, nor Web Service.
+* There is no logging.
+* There is no configuration.
+* I have not implemented a log of the transactions which happened (a ledger). This would be the next thing I implemented if the requirements had asked for it.
 
 ### Customer Domain
 
 Using the simplest way to represent the customer entity I made the assumption that a customer of the bank can only have one bank account. Another simplification that I chose was to use the customer's name as the identifier for the customer.
 
-For the sake of modelling and the simple examples I thought that this was good enough. In the real world the customer would have some sort of unique identifier which is assigned to the customer by the system (think of UUID, GUID, or something similar). There is more than on Jane Smith in the world. Solving this problem was not really demonstrating the bank domain.
+For the sake of modelling and the simple examples I thought that this was good enough. In the real world the customer would have some sort of unique identifier which is assigned to the customer by the system (think of UUID, GUID, or something similar). There is more than on Jane Smith in the world. Solving this problem was not really demonstrating the workings of a bank.
 
 The customer has a balance attribute which states how much money the customer has in their bank account at that given point in time. This value is updated each time a deposit or withdrawal takes place.
 
@@ -53,7 +59,7 @@ I added a check in the customer entity for a valid name. This is because a custo
 
 ### Bank Domain
 
-The bank entity has only two attributes - a balance which represents the amount of money that the bank has available to it based on the balance of the customer accounts, and a list of customers.
+The bank entity has only two attributes - a balance which represents the amount of money that the bank has available to it based on the balance of all of the customer accounts, and a list of customers.
 
 The balance is a convenience, and is a derived value based on the sum of the balances of the customers. It is pretty obvious that calculating or deriving this value would become slower as the number of customers grew.
 
@@ -65,3 +71,16 @@ The method which gets the customer statement is a point in time state of the cus
 
 The bank domain is aware of the customer domain, but the customer domain is not aware at all of the bank domain.
 
+## Final Comments
+
+The resulting code seems very simple, and it implements only the functionality which was requested.
+
+The two domains ended up as two classes (one class for each domain).
+
+The main important logic is in the deposit and withdrawal functions. The `index.js` file uses the challenge code to demonstrate the use.
+
+The test cases also demonstrate the use of the challenge code, and proves that the solution is correct, and also ensures that edge cases are correctly catered for. As much as possible the test cases try to test behaviour, rather than the implementation. The solution is very simple, and in some cases the test cases seem to test the implementation details, but this was not the goal.
+
+## Thanks
+
+Thanks for spending the time to review this, and I look forward to your feedback.

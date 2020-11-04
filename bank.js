@@ -22,7 +22,7 @@ class Bank {
 
     const customer = new Customer(customerName);
 
-    if(customer instanceof Customer) {
+    if (customer instanceof Customer) {
       this.customers.push(customer);
       return true;
     }
@@ -32,7 +32,7 @@ class Bank {
 
   getCustomer(customerName) {
     // Get only the requested customer
-    for(var i = 0; i < this.customers.length; i++) {
+    for (var i = 0; i < this.customers.length; i++) {
       if (this.customers[i].getName() === customerName) {
         return this.customers[i];
       }
@@ -51,13 +51,15 @@ class Bank {
 
   depositFunds(customerName, amount) {
     const customer = this.getCustomer(customerName);
-    if(!customer) {
+    if (!customer) {
+      // Could not find the customer
       return false;
     }
 
     let depositResult = customer.depositFunds(amount);
 
-    if(!depositResult) {
+    if (!depositResult) {
+      // The deposit did not work
       return false;
     }
 
@@ -68,13 +70,15 @@ class Bank {
 
   withdrawFunds(customerName, amount) {
     const customer = this.getCustomer(customerName);
-    if(!customer) {
+    if (!customer) {
+      // Could not find the customer
       return false;
     }
 
     let withdrawalResult = customer.withdrawFunds(amount);
 
-    if(!withdrawalResult) {
+    if (!withdrawalResult) {
+      // The withdrawal did not work
       return false;
     }
 
@@ -85,7 +89,8 @@ class Bank {
 
   getStatement(customerName) {
     const customer = this.getCustomer(customerName);
-    if(!customer) {
+    if (!customer) {
+      // Could not find the customer
       return null;
     }
 

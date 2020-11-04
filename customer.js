@@ -21,10 +21,10 @@ class Customer {
   }
 
   depositFunds(amount) {
-    if(isNaN(amount) || !amount) {
+    if (isNaN(amount) || !amount) {
       return false;
     }
-    if(amount < 0) {
+    if (amount < 0) {
       return false;
     }
 
@@ -34,16 +34,16 @@ class Customer {
   }
 
   withdrawFunds(amount) {
-    if(isNaN(amount) || !amount) {
+    if (isNaN(amount) || !amount) {
       return false;
     }
-    if(amount < 0) {
+    if (amount < 0) {
       return false;
     }
 
     let testBalance = this.balance.minus(amount);
 
-    if(testBalance.isLessThan(0)) {
+    if (testBalance.isLessThan(0)) {
       return false;
     }
 

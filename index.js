@@ -15,9 +15,10 @@ console.log(`Successfully created bank ${bank.getName()}\n`);
 let result = false;
 
 // Add customers and initial deposits
-for(var i = 0; i < CUSTOMER_NAMES.length; i++) {
+for (var i = 0; i < CUSTOMER_NAMES.length; i++) {
   result = bank.addCustomer(CUSTOMER_NAMES[i]);
-  if(result) {
+
+  if (result) {
     console.log(`Successfully added bank account for ${CUSTOMER_NAMES[i]}.`);
   }
   else {
@@ -25,19 +26,22 @@ for(var i = 0; i < CUSTOMER_NAMES.length; i++) {
   }
 
   bank.depositFunds(CUSTOMER_NAMES[i], DEPOSIT_AMOUNTS[i]);
-  if(result) {
+
+  if (result) {
     console.log(`Successfully deposited ${DEPOSIT_AMOUNTS[i]} into the account for ${CUSTOMER_NAMES[i]}.`);
   }
   else {
     console.log(`Could not add deposit ${DEPOSIT_AMOUNTS[i]} into the account for ${CUSTOMER_NAMES[i]}.`);
   }
+
   console.log('');
 }
 
 // Attempt withdrawals
-for(var j = 0; j < CUSTOMER_NAMES.length; j++) {
+for (var j = 0; j < CUSTOMER_NAMES.length; j++) {
   result = bank.withdrawFunds(CUSTOMER_NAMES[j], WITHDRAWAL_AMOUNTS[j]);
-  if(result) {
+
+  if (result) {
     console.log(`Successfully withdrew ${WITHDRAWAL_AMOUNTS[j]} from the account of ${CUSTOMER_NAMES[j]}.`);
   }
   else {
@@ -47,8 +51,8 @@ for(var j = 0; j < CUSTOMER_NAMES.length; j++) {
 
 console.log('');
 
-// Grab statements for the customers after deposits and withdrawals
-for(var k = 0; k < CUSTOMER_NAMES.length; k++) {
+// Print statements for the customers after deposits and withdrawals
+for (var k = 0; k < CUSTOMER_NAMES.length; k++) {
   let statement = bank.getStatement(CUSTOMER_NAMES[k]);
 
   console.log(`Statement for account of ${statement.customer.name} in ${statement.bank.name}`);
